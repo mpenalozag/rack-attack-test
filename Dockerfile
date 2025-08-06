@@ -25,6 +25,10 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
+# Declare environment variables that can be overridden at runtime
+ENV REDIS_RATE_LIMIT_URL="redis://localhost:6379/1" \
+    SECRET_KEY_BASE=""
+
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 

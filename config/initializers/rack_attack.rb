@@ -11,8 +11,11 @@ class Rack::Attack
   # ActiveSupport::Cache::Store
 
   # Configure Rack Attack to use a separate Redis instance
+  redis_url = ENV.fetch("REDIS_RATE_LIMIT_URL", "redis://localhost:6379/1")
+  Rails.logger.info "Rack::Attack using Redis URL: #{redis_url.gsub(/:[^:]*@/, ':***@')}" # Log URL without password
+
   Rack::Attack.cache.store = ActiveSupport::Cache::RedisCacheStore.new(
-    url: ENV.fetch("REDIS_RATE_LIMIT_URL", "redis://localhost:6379/1"),
+    url: redis_url,
     namespace: "rack-attack",
     error_handler: ->(method:, returning:, exception:) { # rubocop:disable Lint/UnusedBlockArgument
       Rails.logger.warn "Rack::Attack Redis error in #{method}: #{exception.message}"
