@@ -61,3 +61,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "rack-attack", "~> 6.7"
+
+gem "redis", "~> 5.4"
