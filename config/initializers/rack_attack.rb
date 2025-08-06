@@ -43,7 +43,7 @@ class Rack::Attack
   # end
 
   # Track requests by authorization header (monitoring only)
-  track("auth_header_requests", limit: 100, period: 1.second) do |req|
+  track("auth_header_requests", limit: 1, period: 1.second) do |req|
     if req.path.start_with?("/v1/")
       auth_header = req.env["HTTP_AUTHORIZATION"]
       Digest::SHA512.hexdigest(auth_header) if auth_header.present?
